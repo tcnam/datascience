@@ -1,3 +1,4 @@
+# %%
 import pandas as pd
 import numpy as np
 import pathlib
@@ -7,9 +8,11 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import confusion_matrix, classification_report  
 
+# %%
 def getParentFolder() -> str:
     return pathlib.Path(__file__).parent.resolve()
 
+# %%
 def detect_outliers(train, n, features):
    
     outlier_indices = [] 
@@ -24,6 +27,7 @@ def detect_outliers(train, n, features):
  
     return multiple_outliers
 
+# %%
 def preprocessTrainData(inputFile, outoutFile):
     df=pd.read_csv(f'{getParentFolder()}\{inputFile}',sep=',')
 
@@ -52,6 +56,8 @@ def preprocessTrainData(inputFile, outoutFile):
 
     df.to_csv(f'{getParentFolder()}\{outoutFile}',sep=',', encoding='utf-8',index=False)
     # print(df)
+
+# %%
 def trainModel(inputFile, validateInputFile):
     df=pd.read_csv(f'{getParentFolder()}\{inputFile}',sep=',')
     y=df['Churn']
@@ -91,11 +97,11 @@ def trainModel(inputFile, validateInputFile):
 
     df=pd.concat([df,pd.DataFrame(prediction1,columns=['churn_predict'])],axis=1)
     df.to_csv(f'{getParentFolder()}\\result1.csv',sep=',', encoding='utf-8',index=False)
-
-
-
+# %%
 if __name__=='__main__':
     preprocessTrainData('trainset.csv','preTrainset.csv')
     # preprocessTrainData('testset.csv','preTestset.csv')
     trainModel('preTrainset.csv','preTestset.csv')
 
+
+# %%
